@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title></title>
+    <script src="\lib\kinetic-v5.1.0.min.js"></script>
+    <div id="container"></div>
+    <script defer="defer">
+         function getScreenSize(){
+            var winW = 630, winH = 460;
+            if (document.body && document.body.offsetWidth) {
+                winW = document.body.offsetWidth;
+                winH = document.body.offsetHeight;
+            }
+            if (document.compatMode=='CSS1Compat' &&
+                    document.documentElement &&
+                    document.documentElement.offsetWidth ) {
+                winW = document.documentElement.offsetWidth;
+                winH = document.documentElement.offsetHeight;
+            }
+            if (window.innerWidth && window.innerHeight) {
+                winW = window.innerWidth;
+                winH = window.innerHeight;
+            }
+            return [winW,winH];
+        }
+        screen = getScreenSize();
+        var stage = new Kinetic.Stage({
+            container: 'container',
+            width: screen[0],
+            height: screen[1]
+        });
+        var layer = new Kinetic.Layer();
+        var box = new Kinetic.Rect({
+            x: 100,
+            y: 40,
+            width: 100,
+            height: 50,
+            fill: '#00D2FF',
+            stroke: 'black',
+            strokeWidth: 4,
+            draggable: true,
+            id: 'myrect'
+        });
+         function zoom(scale,x,y,e){
+            console.debug(arguments);
+         }
+        stage.on('click',function(args){
+            var e = args[0];
+            var target = args[1];
+            var type = args[2];
+            var scale = 0.5;
+            var x = 0;
+            var y = 0;
+            function zoom(){
+                var position = stage.getUserPosition();
+                stage.setScale(2,2);
+                stage.setPosition(position.x - layer2.getX(), position.y - layer2.getY()); //move the layer by an offset based on the second layer. This isn't exactly correct so it's something you have to experiment with.
+            }
+            //zoom(scale,x,y,e);
+                });
+        // add cursor styling
+        box.on('mouseover', function () {
+            document.body.style.cursor = 'pointer';
+        });
+        box.on('mouseout', function () {
+            document.body.style.cursor = 'default';
+        });
+        layer.add(box);
+        stage.add(layer);
+    </script>
+</head>
+<body>
+
+
+</body>
+</html>
